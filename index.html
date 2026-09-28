@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Film Brief Press</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#F3F0E8; --paper-2:#E9E4D8; --ink:#1B1B22; --muted:#5C5A66; --rule:#CFC8B8;
+  --blue:#0078BF; --pink:#FF48B0; --yellow:#FFE800; --field:#FFFDF7; --on-accent:#fff;
+  --frame:#1B1B22; --head-bg:#0078BF; --head-ink:#fff;
+  --sel-bg:#FF48B0; --sel-ink:#1B1B22; --sel-line:#1B1B22;
+  --btn-bg:#FF48B0; --btn-ink:#1B1B22; --btn-line:#1B1B22;
+  --display:"Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#16161C; --paper-2:#1F1F27; --ink:#ECE8DD; --muted:#A09CAA; --rule:#34333E;
+    --blue:#4A94C8; --pink:#D96A9E; --yellow:#FFE800; --field:#1B1B22; --on-accent:#0E0E12;
+  --frame:#3A3844; --head-bg:#1C3D57; --head-ink:#DCEAF5;
+  --sel-bg:#3A2331; --sel-ink:#F2C4DA; --sel-line:#8C4F6E;
+  --btn-bg:#C8638F; --btn-ink:#1A1117; --btn-line:#C8638F;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#16161C; --paper-2:#1F1F27; --ink:#ECE8DD; --muted:#A09CAA; --rule:#34333E;
+  --blue:#4A94C8; --pink:#D96A9E; --yellow:#FFE800; --field:#1B1B22; --on-accent:#0E0E12;
+  --frame:#3A3844; --head-bg:#1C3D57; --head-ink:#DCEAF5;
+  --sel-bg:#3A2331; --sel-ink:#F2C4DA; --sel-line:#8C4F6E;
+  --btn-bg:#C8638F; --btn-ink:#1A1117; --btn-line:#C8638F;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1240px;margin:0 auto}
+header.mast{padding-block:36px 24px;display:grid;gap:10px;border-bottom:2px solid var(--frame)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(44px,8vw,92px);line-height:.88;margin:0;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance;position:relative}
+h1 .ov{color:var(--blue);mix-blend-mode:multiply}
+h1 .ov2{color:var(--pink);position:absolute;left:3px;top:2px;mix-blend-mode:multiply;pointer-events:none}
+:root[data-theme="dark"] h1 .ov, :root[data-theme="dark"] h1 .ov2{mix-blend-mode:screen}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) h1 .ov, :root:not([data-theme="light"]) h1 .ov2{mix-blend-mode:screen}}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+.lede a{color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-block:14px}
+.bar .lbl{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
+button{font:inherit;cursor:pointer}
+.chip{border:1.5px solid var(--frame);background:transparent;color:var(--ink);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:500}
+.chip:hover{background:var(--sel-bg);color:var(--sel-ink);border-color:var(--sel-line)}
+.chip.ghost{border-style:dashed;color:var(--muted);border-color:var(--muted)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:32px;align-items:start;padding-top:8px}
+@media (max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+.setup{border:1.5px solid var(--frame);padding:16px 18px;display:grid;gap:10px;margin-top:8px;background:var(--paper-2)}
+.setup h2{font-family:var(--display);font-size:24px;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.checks{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.checks code{font-family:var(--mono);font-size:12.5px;background:var(--field);padding:1px 5px;border:1px solid var(--rule)}
+.checks input{margin-top:3px;accent-color:var(--blue)}
+
+section.step{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding-block:26px;border-bottom:1px solid var(--rule)}
+@media (max-width:560px){section.step{grid-template-columns:minmax(0,1fr);gap:6px}}
+.num{font-family:var(--display);font-weight:900;font-size:56px;line-height:.85;color:var(--blue);position:relative}
+.num::after{content:attr(data-n);position:absolute;left:3px;top:3px;color:var(--pink);mix-blend-mode:multiply}
+.step h2{font-family:var(--display);font-weight:700;font-size:30px;text-transform:uppercase;margin:0 0 2px;letter-spacing:.02em}
+.step .why{color:var(--muted);margin:0 0 14px;font-size:14px;max-width:64ch}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+@media (max-width:640px){.fields{grid-template-columns:minmax(0,1fr)}}
+.f{display:grid;gap:5px;align-content:start}
+.f.wide{grid-column:1/-1}
+.f > label, .f > .flabel{font-weight:600;font-size:13.5px}
+.f .hint{font-size:12.5px;color:var(--muted)}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:var(--field);border:1.5px solid var(--rule);padding:8px 10px;border-radius:2px}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 25%,transparent)}
+textarea{resize:vertical;min-height:72px;line-height:1.45}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg label{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--rule);padding:6px 11px;border-radius:2px;font-size:13.5px;cursor:pointer;background:var(--field)}
+.seg input{accent-color:var(--blue);margin:0}
+.seg label:has(input:checked){border-color:var(--sel-line);background:var(--sel-bg);color:var(--sel-ink)}
+.dep[hidden]{display:none!important}
+
+aside.out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);border:2px solid var(--frame);background:var(--field);display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+@media (max-width:960px){aside.out{position:static}}
+.out-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:2px solid var(--frame);background:var(--head-bg);color:var(--head-ink)}
+.out-head strong{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.03em}
+.copy{background:var(--btn-bg);color:var(--btn-ink);border:1.5px solid var(--btn-line);padding:6px 14px;font-weight:600;font-size:13.5px}
+.copy:active{transform:translate(1px,1px)}
+pre#prompt{margin:0;padding:14px;font-family:var(--mono);font-size:12.3px;line-height:1.55;white-space:pre-wrap;word-break:break-word;max-height:68vh;overflow:auto;tab-size:2}
+@media (max-width:960px){pre#prompt{max-height:none}}
+.out-foot{border-top:1px solid var(--rule);padding:10px 14px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
+.meter{display:flex;gap:4px}
+.meter i{flex:1;height:6px;background:var(--rule)}
+.meter i.on{background:var(--pink)}
+.toast{font-family:var(--mono);font-size:12px;color:var(--head-ink)}
+
+footer.credit{margin-top:40px;border-top:2px solid var(--frame);padding-top:18px;display:grid;gap:8px;font-size:13.5px;color:var(--muted);max-width:80ch}
+footer.credit strong{color:var(--ink)}
+footer.credit a{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="mast">
+  <span class="eyebrow">Brief builder for bishpls/animation-pipeline · make-film skill</span>
+  <h1><span class="ov">Film Brief</span><span class="ov2" aria-hidden="true">Film Brief</span><br>Press</h1>
+  <p class="lede">Fill in the six stages of the pipeline's <code>make-film</code> workflow. The panel on the right turns your answers into a brief you paste into Claude Code, opened inside your clone of <a href="https://github.com/bishpls/animation-pipeline" target="_blank" rel="noopener">Michael Bishop's animation-pipeline</a>. The form opens with an example; load another or clear it to start your own.</p>
+  <div class="bar">
+    <span class="lbl">Start from</span>
+    <button class="chip" data-preset="bakery" type="button">Neon music video</button>
+    <button class="chip" data-preset="fossil" type="button">Vertical explainer</button>
+    <button class="chip" data-preset="idol" type="button">Idol debut</button>
+    <button class="chip ghost" data-preset="blank" type="button">Clear all</button>
+  </div>
+</header>
+
+<div class="grid">
+<form id="brief" autocomplete="off">
+
+  <div class="setup">
+    <h2>Before you brief</h2>
+    <ul class="checks">
+      <li><label><input type="checkbox" id="c-clone"> <span>Clone the repo and open Claude Code in it: <code>git clone https://github.com/bishpls/animation-pipeline</code></span></label></li>
+      <li><label><input type="checkbox" id="c-install"> <span>Install: <code>npm install</code>, a Python <code>.venv</code> with numpy, scipy, soundfile, librosa, requests, pillow, matplotlib, and <code>ffmpeg</code></span></label></li>
+      <li><label><input type="checkbox" id="c-keys"> <span>Put keys in <code>.env</code>: <code>ELEVENLABS_API_KEY</code> (song, voice), <code>GEMINI_API_KEY</code> (critic), and <code>OPENAI_API_KEY</code> only if you want illustrated keys</span></label></li>
+    </ul>
+  </div>
+
+  <section class="step">
+    <div class="num" data-n="0">0</div>
+    <div>
+      <h2>Frame it</h2>
+      <p class="why">The pitch: the idea, the look, the format and the length. These are the questions the skill says change the plan.</p>
+      <div class="fields">
+        <div class="f"><label for="title">Working title</label><input type="text" id="title"></div>
+        <div class="f"><label for="slug">Project folder</label><input type="text" id="slug"><span class="hint">Becomes <code>projects/&lt;folder&gt;/</code></span></div>
+        <div class="f wide"><label for="logline">Logline</label><textarea id="logline" rows="3"></textarea><span class="hint">Two or three sentences. What happens, and what it means.</span></div>
+        <div class="f"><span class="flabel">Format</span>
+          <div class="seg" role="radiogroup" aria-label="Format">
+            <label><input type="radio" name="format" value="16:9 landscape, 1080p24"> 16:9</label>
+            <label><input type="radio" name="format" value="9:16 vertical, 1080×1920"> 9:16</label>
+            <label><input type="radio" name="format" value="both a 16:9 master and a 9:16 cut"> Both</label>
+          </div></div>
+        <div class="f"><label for="length">Length (seconds)</label><input type="number" id="length" min="10" max="600" step="1"></div>
+        <div class="f"><label for="language">Language</label><input type="text" id="language"></div>
+        <div class="f"><label for="audience">Where it will be watched</label><input type="text" id="audience"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num" data-n="1">1</div>
+    <div>
+      <h2>Sound</h2>
+      <p class="why">Sound comes first because it is the clock. Every frame is locked to the song's beat grid or the narrator's word timestamps.</p>
+      <div class="fields">
+        <div class="f wide"><span class="flabel">Audio</span>
+          <div class="seg" role="radiogroup" aria-label="Audio">
+            <label><input type="radio" name="audio" value="song"> Original song</label>
+            <label><input type="radio" name="audio" value="narration"> Narration + score</label>
+            <label><input type="radio" name="audio" value="provided"> I'll supply the audio</label>
+          </div></div>
+        <div class="f dep" data-when="audio=song"><label for="genre">Genre and style</label><input type="text" id="genre"></div>
+        <div class="f dep" data-when="audio=song"><label for="takes">Takes to generate</label>
+          <select id="takes"><option>4</option><option>5</option><option>6</option><option>7</option></select><span class="hint">The skill makes 4–7, at most 2 at a time.</span></div>
+        <div class="f wide dep" data-when="audio=song"><label for="lyrics">Lyrics, or what the song should say</label><textarea id="lyrics" rows="4"></textarea><span class="hint">Leave rough notes and Claude writes the lyrics and composition plan.</span></div>
+        <div class="f wide dep" data-when="audio=narration"><label for="script">Narration script or topic</label><textarea id="script" rows="4"></textarea></div>
+        <div class="f dep" data-when="audio=narration"><label for="voice">Narrator voice</label><input type="text" id="voice"></div>
+        <div class="f dep" data-when="audio=narration"><label for="facts">Fact-check sources</label><input type="text" id="facts"><span class="hint">Every fact is verified before scripting.</span></div>
+        <div class="f wide dep" data-when="audio=provided"><label for="audiofile">Audio file path</label><input type="text" id="audiofile"></div>
+        <div class="f wide"><span class="flabel">Who picks the final take</span>
+          <div class="seg" role="radiogroup" aria-label="Who picks">
+            <label><input type="radio" name="pick" value="me by ear, from a shortlist chosen on beat-grid fit and intelligibility"> Me, by ear</label>
+            <label><input type="radio" name="pick" value="Claude, on evidence (beat-grid fit, song screen, intelligibility), then tell me why"> Claude, on evidence</label>
+          </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num" data-n="2">2</div>
+    <div>
+      <h2>Storyboard</h2>
+      <p class="why">A shot table cut to beats or sung words. Every shot needs an event. List the moments you already see; Claude fills the rest.</p>
+      <div class="fields">
+        <div class="f wide"><label for="beats">Key moments, in order</label><textarea id="beats" rows="5"></textarea><span class="hint">One per line. A time is optional, e.g. <code>0:27 the blink</code>.</span></div>
+        <div class="f"><span class="flabel">On-screen lyrics or captions</span>
+          <div class="seg" role="radiogroup" aria-label="Lyrics on screen">
+            <label><input type="radio" name="lyricsys" value="kinetic type on the sung syllable"> Kinetic type</label>
+            <label><input type="radio" name="lyricsys" value="karaoke wipe on the sung syllable"> Karaoke</label>
+            <label><input type="radio" name="lyricsys" value="none"> None</label>
+          </div></div>
+        <div class="f"><label for="ending">Ending</label><input type="text" id="ending"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num" data-n="3">3</div>
+    <div>
+      <h2>Look</h2>
+      <p class="why">Look boards and characters come before any shot is built.</p>
+      <div class="fields">
+        <div class="f wide"><label for="look">Visual style</label><textarea id="look" rows="3"></textarea></div>
+        <div class="f"><label for="refs">Reference works</label><input type="text" id="refs"></div>
+        <div class="f"><label for="palette">Palette or print method</label><input type="text" id="palette"></div>
+        <div class="f wide"><label for="cast">Characters</label><textarea id="cast" rows="3"></textarea><span class="hint">Who appears, what they look like, and how they move. Write "none" for pure type and shapes.</span></div>
+        <div class="f wide"><span class="flabel">Generated imagery and video</span>
+          <div class="seg" role="radiogroup" aria-label="Generated media">
+            <label><input type="radio" name="genai" value="none: every frame drawn by code"> None, all code</label>
+            <label><input type="radio" name="genai" value="illustrated keys allowed (gptimage), no video model"> Illustrated keys</label>
+            <label><input type="radio" name="genai" value="illustrated keys plus short Seedance cut-ins, each one only after my sign-off"> Keys + video cut-ins</label>
+          </div><span class="hint">The pipeline keeps video models off unless you sign off.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num" data-n="4">4</div>
+    <div>
+      <h2>Build and review</h2>
+      <p class="why">Scaffold a slate animatic, split the film into sections, build them in parallel, then review in rounds until the notes are polish.</p>
+      <div class="fields">
+        <div class="f"><label for="agents">Parallel section agents</label><select id="agents"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+        <div class="f"><label for="rounds">Review rounds, at least</label><select id="rounds"><option>1</option><option>2</option><option>3</option></select></div>
+        <div class="f wide"><span class="flabel">Check in with me</span>
+          <div class="seg" aria-label="Checkpoints">
+            <label><input type="checkbox" name="check" value="after the song or voice takes"> After takes</label>
+            <label><input type="checkbox" name="check" value="after the storyboard"> After storyboard</label>
+            <label><input type="checkbox" name="check" value="after the look boards"> After look boards</label>
+            <label><input type="checkbox" name="check" value="after the slate animatic"> After animatic</label>
+            <label><input type="checkbox" name="check" value="before each review round's fixes"> Each review round</label>
+          </div></div>
+        <div class="f wide"><label for="budget">Budget or limits</label><input type="text" id="budget"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num" data-n="5">5</div>
+    <div>
+      <h2>Exports and credit</h2>
+      <p class="why">What files you want, and how the film credits the people and tools behind it.</p>
+      <div class="fields">
+        <div class="f wide"><span class="flabel">Exports</span>
+          <div class="seg" aria-label="Exports">
+            <label><input type="checkbox" name="exp" value="a master (crf 15)"> Master</label>
+            <label><input type="checkbox" name="exp" value="an X / web platform file (about 14 Mbps)"> Platform file</label>
+            <label><input type="checkbox" name="exp" value="a vertical clip of the hook"> Vertical hook clip</label>
+            <label><input type="checkbox" name="exp" value="a contact sheet of stills"> Stills sheet</label>
+          </div></div>
+        <div class="f"><label for="byline">Your byline</label><input type="text" id="byline"></div>
+        <div class="f"><label for="publish">Publishing</label>
+          <select id="publish">
+            <option value="Keep everything local; do not commit or push.">Keep it local</option>
+            <option value="When I ask, commit to my own fork and attach the video to a GitHub release.">My fork, when I ask</option>
+          </select></div>
+        <div class="f wide"><span class="flabel">Credit the pipeline</span>
+          <div class="seg" aria-label="Credit">
+            <label><input type="checkbox" id="cr-card"> End card</label>
+            <label><input type="checkbox" id="cr-desc"> Video description</label>
+            <label><input type="checkbox" id="cr-readme"> Project README</label>
+          </div><span class="hint">Credit line: "Made with animation-pipeline by Michael Bishop (@bishpls)", with a link to the repo.</span></div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<aside class="out" aria-label="Generated brief">
+  <div class="out-head"><strong>Your brief</strong><span class="toast" id="toast" role="status"></span><button class="copy" id="copy" type="button">Copy brief</button></div>
+  <pre id="prompt" tabindex="0"></pre>
+  <div class="out-foot">
+    <div class="meter" id="meter" aria-hidden="true"></div>
+    <span id="meterText"></span>
+    <span>Paste into Claude Code, running in your clone of the repo.</span>
+  </div>
+</aside>
+</div>
+
+<footer class="credit">
+  <strong>Credit where it's due</strong>
+  <span>The pipeline, its <code>make-film</code> skill and the craft rules this brief follows are the work of <strong>Michael Bishop</strong> (<a href="https://github.com/bishpls" target="_blank" rel="noopener">@bishpls</a>), published at <a href="https://github.com/bishpls/animation-pipeline" target="_blank" rel="noopener">github.com/bishpls/animation-pipeline</a>. The riso inks on this page nod to his film <em>OPEN ALL NIGHT</em>.</span>
+  <span>This page is an unofficial companion. It has none of the pipeline's code and only writes a text brief for it. If the pipeline helps you, star the repo and credit it in what you make.</span>
+</footer>
+</div>
+
+<script>
+const PRESETS = {
+  bakery: {
+    title:"Last Bus Home", slug:"last-bus-home",
+    logline:"The 1:40 a.m. night bus crosses a sleeping city. Each stop lights one window, and each window is someone's small story. By the depot the whole route glows, and the driver, who nobody thanks, gets a song.",
+    format:"16:9 landscape, 1080p24", length:90, language:"English", audience:"YouTube and X",
+    audio:"song", genre:"warm synth-pop ballad, 96 BPM, a big singalong hook", takes:"5",
+    lyrics:"Chorus hook: \"Keep the lights on, driver\". Verse 1 is the empty bus. Verse 2 is the passengers. Bridge: the depot at dawn.",
+    pick:"me by ear, from a shortlist chosen on beat-grid fit and intelligibility",
+    beats:"0:00 headlights switch on in the dark\nFirst stop: a nurse getting off shift\nChorus: the route map lights up stop by stop\nBridge: the bus alone on a bridge, the camera pulls up\nFinal chorus: the whole city spells THANK YOU in windows",
+    lyricsys:"kinetic type on the sung syllable", ending:"Dawn at the depot; the driver tips a cap",
+    look:"Cut-paper title sequence, mid-century. Riso print with overprint, halftone tints and slight misregistration.",
+    refs:"Saul Bass, Catch Me If You Can titles", palette:"Riso blue, fluorescent pink, yellow, black",
+    cast:"The driver as a simple cut-paper puppet; passengers as silhouettes in lit windows.",
+    genai:"none: every frame drawn by code", agents:"5", rounds:"2",
+    check:["after the song or voice takes","after the storyboard","after the slate animatic"],
+    budget:"No more than 7 song generations",
+    exp:["a master (crf 15)","an X / web platform file (about 14 Mbps)"], byline:"", publish:"Keep everything local; do not commit or push.",
+    crcard:true, crdesc:true, crreadme:true
+  },
+  fossil: {
+    title:"Names Are Maps", slug:"names-are-maps",
+    logline:"Every place name is a buried description. Zoom through the layers of six town names, each set in the type of its era, down to what the first people who said it could see.",
+    format:"9:16 vertical, 1080×1920", length:75, language:"English", audience:"TikTok, Reels and Shorts",
+    audio:"narration", script:"Six place names and their origins, one surprise at the end. Calm, curious, a little wry.",
+    voice:"Warm, unhurried British narrator, chosen by blind comparison", facts:"Etymonline, Wiktionary, the relevant place-name dictionary",
+    pick:"Claude, on evidence (beat-grid fit, song screen, intelligibility), then tell me why",
+    beats:"Cold open on a road sign\nOne stratum per name, the camera arriving as it is spoken\nThe surprise name last",
+    lyricsys:"none", ending:"The road sign again, now read correctly",
+    look:"Letterpress: ink squeeze, a debossed rim, line-screen engraving tints. A continuous descent through a core sample.",
+    refs:"Old county survey maps", palette:"Two inks on cream stock",
+    cast:"none", genai:"none: every frame drawn by code", agents:"3", rounds:"2",
+    check:["after the song or voice takes","after the storyboard"], budget:"",
+    exp:["a master (crf 15)"], byline:"", publish:"Keep everything local; do not commit or push.",
+    crcard:true, crdesc:true, crreadme:false
+  },
+  idol: {
+    title:"First Commit", slug:"first-commit",
+    logline:"A tiny robot's idol debut. It sings about being new and unsure it is original, then commits anyway.",
+    format:"16:9 landscape, 1080p24", length:150, language:"Japanese with English glosses", audience:"YouTube",
+    audio:"song", genre:"J-pop idol debut, 170 BPM, MIX chant, call-and-response, a key change", takes:"6",
+    lyrics:"Self-introduction verse. Hook: \"git push, heart push\". Bridge about borrowed voices becoming your own.",
+    pick:"me by ear, from a shortlist chosen on beat-grid fit and intelligibility",
+    beats:"Spoken intro over a dark stage\nTransformation into the idol costume\nCopyable 8-count dance on the chorus\nKey change blast",
+    lyricsys:"karaoke wipe on the sung syllable", ending:"Crowd call and a final pose",
+    look:"Two registers: a chibi hand-coded style for the stage, and sakuga illustrated keys for the big moments.",
+    refs:"Idol debut MVs, Panty & Stocking", palette:"Stage pastels with hard black line",
+    cast:"The robot idol plus a troupe of backup dancers. Rig the idol.",
+    genai:"illustrated keys plus short Seedance cut-ins, each one only after my sign-off", agents:"5", rounds:"3",
+    check:["after the song or voice takes","after the storyboard","after the look boards","after the slate animatic","before each review round's fixes"],
+    budget:"At most two video cut-ins",
+    exp:["a master (crf 15)","an X / web platform file (about 14 Mbps)","a vertical clip of the hook"], byline:"", publish:"When I ask, commit to my own fork and attach the video to a GitHub release.",
+    crcard:true, crdesc:true, crreadme:true
+  }
+};
+const $ = s => document.querySelector(s);
+const form = $("#brief");
+const TEXT = ["title","slug","logline","length","language","audience","genre","takes","lyrics","script","voice","facts","audiofile","beats","ending","look","refs","palette","cast","agents","rounds","budget","byline","publish"];
+const RADIO = ["format","audio","pick","lyricsys","genai"];
+const MULTI = ["check","exp"];
+const FLAGS = {crcard:"cr-card", crdesc:"cr-desc", crreadme:"cr-readme"};
+
+function load(p){
+  TEXT.forEach(k => { const el = document.getElementById(k); if (!el) return;
+    if (el.tagName === "SELECT") el.value = p[k] ?? el.options[0].value; else el.value = p[k] ?? ""; });
+  RADIO.forEach(k => form.querySelectorAll(`input[name=${k}]`).forEach(i => i.checked = i.value === p[k]));
+  MULTI.forEach(k => form.querySelectorAll(`input[name=${k}]`).forEach(i => i.checked = (p[k]||[]).includes(i.value)));
+  Object.entries(FLAGS).forEach(([k,id]) => document.getElementById(id).checked = !!p[k]);
+  render();
+}
+function read(){
+  const d = {};
+  TEXT.forEach(k => d[k] = (document.getElementById(k)?.value || "").trim());
+  RADIO.forEach(k => d[k] = form.querySelector(`input[name=${k}]:checked`)?.value || "");
+  MULTI.forEach(k => d[k] = [...form.querySelectorAll(`input[name=${k}]:checked`)].map(i => i.value));
+  Object.entries(FLAGS).forEach(([k,id]) => d[k] = document.getElementById(id).checked);
+  return d;
+}
+const list = a => a.length < 2 ? a.join("") : a.slice(0,-1).join(", ") + " and " + a[a.length-1];
+const TBD = "(decide with me)";
+const v = x => x || TBD;
+
+function build(d){
+  const L = [];
+  L.push(`/make-film`, ``);
+  L.push(`Use this repo's make-film workflow (read docs/CRAFT.md §0, §4 and §7 first) to make a new film from this brief. Where a field says ${TBD}, pitch options and ask me before you commit.`, ``);
+  L.push(`## 0. Frame`);
+  L.push(`- Title: ${v(d.title)}`);
+  L.push(`- Folder: projects/${d.slug || (d.title ? d.title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") : "<name>")}/`);
+  L.push(`- Logline: ${v(d.logline)}`);
+  L.push(`- Format: ${v(d.format)}`);
+  L.push(`- Length: ${d.length ? d.length + " s" : TBD}`);
+  L.push(`- Language: ${v(d.language)}`);
+  L.push(`- Watched on: ${v(d.audience)}`, ``);
+  L.push(`## 1. Sound`);
+  if (d.audio === "song"){
+    L.push(`- An original song. Write the lyrics and a composition plan in song/plan.json.`);
+    L.push(`- Genre and style: ${v(d.genre)}`);
+    L.push(`- Lyrics and intent: ${v(d.lyrics)}`);
+    L.push(`- Generate ${d.takes || 4} takes with tools/music.py, at most 2 at a time.`);
+  } else if (d.audio === "narration"){
+    L.push(`- Narration over a score. Verify every fact before writing the script.`);
+    L.push(`- Script or topic: ${v(d.script)}`);
+    L.push(`- Voice: ${v(d.voice)}. Audition with tools/tts.py, score blind, then speech-to-text the final lines.`);
+    L.push(`- Fact sources: ${v(d.facts)}`);
+  } else if (d.audio === "provided"){
+    L.push(`- I'm supplying the audio: ${v(d.audiofile)}. Build the cue sheet from it with audio_analyze.py.`);
+  } else L.push(`- Audio: ${TBD}`);
+  if (d.audio !== "provided") L.push(`- Final take chosen by: ${v(d.pick)}`);
+  L.push(`- Build the cue sheet (audio_analyze.py --cues, cues.js, songmap.py) before storyboarding.`, ``);
+  L.push(`## 2. Storyboard`);
+  const beats = d.beats.split("\n").map(s=>s.trim()).filter(Boolean);
+  if (beats.length){ L.push(`Moments I already see, in order:`); beats.forEach(b => L.push(`  - ${b}`)); }
+  else L.push(`- Key moments: ${TBD}`);
+  L.push(`- On-screen lyrics or captions: ${v(d.lyricsys)}`);
+  L.push(`- Ending: ${v(d.ending)}`);
+  L.push(`- Write STORYBOARD.md as a shot table cut to beats or sung words. Every shot needs an event.`, ``);
+  L.push(`## 3. Look`);
+  L.push(`- Style: ${v(d.look)}`);
+  L.push(`- References: ${v(d.refs)}`);
+  L.push(`- Palette or print: ${v(d.palette)}`);
+  L.push(`- Characters: ${v(d.cast)}`);
+  L.push(`- Generated media: ${v(d.genai)}`);
+  L.push(`- Build look boards as LOOPS in src/board.js and review them before any shot.`, ``);
+  L.push(`## 4. Build and review`);
+  L.push(`- Scaffold and render a slate animatic, then build with ${d.agents || 1} parallel section agent${d.agents === "1" ? "" : "s"}, one file each.`);
+  L.push(`- At least ${d.rounds || 1} review round${d.rounds === "1" ? "" : "s"}: contact sheets, seam sheets, filmscan, and verify every critique at full resolution before fixing.`);
+  L.push(`- Stop and check in with me ${d.check.length ? list(d.check) : "only when something is " + TBD}.`);
+  if (d.budget) L.push(`- Limits: ${d.budget}`);
+  L.push(``);
+  L.push(`## 5. Exports and credit`);
+  L.push(`- Exports: ${d.exp.length ? list(d.exp) : TBD}`);
+  if (d.byline) L.push(`- Byline: ${d.byline}`);
+  const where = [d.crcard && "the end card", d.crdesc && "a video description I can paste", d.crreadme && "the project README"].filter(Boolean);
+  if (where.length) L.push(`- Credit the pipeline in ${list(where)}: "Made with animation-pipeline by Michael Bishop (@bishpls): github.com/bishpls/animation-pipeline". Also credit the music, voice and font sources the film uses, following THIRD_PARTY.md.`);
+  L.push(`- ${d.publish || "Keep everything local; do not commit or push."}`);
+  return L.join("\n");
+}
+function score(d){
+  const keys = [d.title, d.logline, d.format, d.length, d.audio, d.beats, d.look, d.cast, d.genai, d.exp.length];
+  return [keys.filter(Boolean).length, keys.length];
+}
+function render(){
+  const d = read();
+  document.querySelectorAll(".dep").forEach(el => { const [k,val] = el.dataset.when.split("="); el.hidden = d[k] !== val; });
+  $("#prompt").textContent = build(d);
+  const [n,t] = score(d);
+  $("#meter").innerHTML = Array.from({length:t},(_,i)=>`<i class="${i<n?"on":""}"></i>`).join("");
+  $("#meterText").textContent = n === t ? "All key fields filled." : `${n} of ${t} key fields filled. Blank ones become questions for Claude.`;
+  try { localStorage.setItem("fbp-draft", JSON.stringify(d)); } catch(e){}
+}
+form.addEventListener("input", render);
+form.addEventListener("change", render);
+form.addEventListener("submit", e => e.preventDefault());
+document.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => load(b.dataset.preset === "blank" ? {} : PRESETS[b.dataset.preset])));
+$("#copy").addEventListener("click", () => {
+  const txt = $("#prompt").textContent, t = $("#toast");
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents($("#prompt")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); t.textContent = "Selected. Press Cmd/Ctrl+C"; };
+  try { navigator.clipboard.writeText(txt).then(() => t.textContent = "Copied", fallback); } catch(e){ fallback(); }
+  setTimeout(() => t.textContent = "", 2600);
+});
+let saved = null;
+try { saved = JSON.parse(localStorage.getItem("fbp-draft")); } catch(e){}
+load(saved && saved.title !== undefined ? saved : PRESETS.bakery);
+</script>
+</body>
+</html>
